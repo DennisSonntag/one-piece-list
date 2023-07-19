@@ -1,12 +1,33 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
-import Csv from '../components/Csv';
+
+import data from '../../data.json'
+const { arr, firstData } = data;
+
 ---
 
 <Layout title="one piece info">
-	<main >
-		<Csv client:load />
+	<main>
+		<div class="overflow-x-auto">
+			<table class="table">
+				<thead>
+					<tr>
+						{firstData.map(x => <th>{x}</th>)}
+					</tr>
+				</thead>
+				<tbody>
+					{
+						arr.slice(1).map(x => (
+							<tr>
+								<th>{x[0]}</th>
+								{x.slice(1).map(x => (
+									<td>{x}</td>
+								))}
+							</tr>
+						))
+					}
+				</tbody>
+			</table>
+		</div>
 	</main>
 </Layout>
-
